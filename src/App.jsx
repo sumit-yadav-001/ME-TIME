@@ -52,35 +52,42 @@ function App() {
                   <Navigate to="/onboarding" replace />
                 ) : (
                   <ProtectedRoute>
-                    <Home />
+                    <Home /> {/* Home page se user booking flow start kar sakta hai */}
                   </ProtectedRoute>
                 )
               }
             />
 
             {/* Protected Routes */}
+
+            {/* Booking-related routes */}
             <Route path="/explore" element={
               <ProtectedRoute><BrowserView /></ProtectedRoute>
             } />
             <Route path="/salon/:id" element={
-              <ProtectedRoute><SalonDetails /></ProtectedRoute>
+              <ProtectedRoute><SalonDetails /></ProtectedRoute> 
+              /* Yahan se user specific salon select karega aur booking initiate karega */
             } />
             <Route path="/booking" element={
-              <ProtectedRoute><Booking /></ProtectedRoute>
+              <ProtectedRoute><Booking /></ProtectedRoute> 
+              /* Actual booking page jahan user services choose aur time select karega */
             } />
             <Route path="/account" element={
               <ProtectedRoute><Account /></ProtectedRoute>
             } />
 
-            {/* Checkout */}
+            {/* Checkout flow (booking payment related) */}
             <Route path="/checkout" element={
-              <ProtectedRoute><Checkout /></ProtectedRoute>
+              <ProtectedRoute><Checkout /></ProtectedRoute> 
+              /* Payment aur confirmation ke liye */
             } />
             <Route path="/add-card" element={
-              <ProtectedRoute><AddCard /></ProtectedRoute>
+              <ProtectedRoute><AddCard /></ProtectedRoute> 
+              /* Payment method add karne ke liye */
             } />
             <Route path="/success" element={
-              <ProtectedRoute><Success /></ProtectedRoute>
+              <ProtectedRoute><Success /></ProtectedRoute> 
+              /* Booking successful page */
             } />
 
             {/* 404 */}
