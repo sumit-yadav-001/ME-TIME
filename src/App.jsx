@@ -3,7 +3,7 @@ import { Suspense, lazy } from 'react';
 import { PageLoader } from './components/ui/Loader';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
-// Lazy loading pages
+// Lazy-loaded pages for performance optimization
 const Login = lazy(() => import('./pages/auth/Login'));
 const VerifyOTP = lazy(() => import('./pages/auth/VerifyOTP'));
 const SignUp = lazy(() => import('./pages/auth/SignUp'));
@@ -12,17 +12,20 @@ const SalonDetails = lazy(() => import('./pages/main/SalonDetails'));
 const Checkout = lazy(() => import('./pages/checkout/Checkout'));
 const AddCard = lazy(() => import('./pages/checkout/AddCard'));
 const Onboarding = lazy(() => import('./pages/onboarding/Onboarding'));
-const Account = lazy(() => import('./pages/account/Account'));
 const Booking = lazy(() => import('./pages/booking/Booking'));
 const BrowserView = lazy(() => import('./pages/main/BrowserView'));
 const Success = lazy(() => import('./pages/checkout/Success'));
 
+// 404 Page component
 function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center h-full text-center px-6">
       <h1 className="text-6xl font-bold text-brand-primary mb-4">404</h1>
       <p className="text-xl font-bold text-brand-dark mb-8">Oops! Page not found.</p>
-      <Link to="/" className="bg-brand-dark text-white px-8 py-3 rounded-full font-bold shadow-lg">
+      <Link
+        to="/"
+        className="bg-brand-dark text-white px-8 py-3 rounded-full font-bold shadow-lg"
+      >
         Go Home
       </Link>
     </div>
@@ -30,6 +33,7 @@ function NotFound() {
 }
 
 function App() {
+  // Check if user has seen onboarding
   const isOnboardingSeen = localStorage.getItem("onboardingSeen");
 
   return (
@@ -44,7 +48,7 @@ function App() {
             <Route path="/verify" element={<VerifyOTP />} />
             <Route path="/signup" element={<SignUp />} />
 
-            {/* Root Route (MAIN LOGIC) */}
+            {/* Root Route */}
             <Route
               path="/"
               element={
@@ -52,45 +56,50 @@ function App() {
                   <Navigate to="/onboarding" replace />
                 ) : (
                   <ProtectedRoute>
-                    <Home /> {/* Home page se user booking flow start kar sakta hai */}
+                    <Home /> {/* Home page: user can start booking flow here */}
                   </ProtectedRoute>
                 )
               }
             />
 
             {/* Protected Routes */}
+            {/* Booking-related pages */}
+            <Route
+              path="/explore"
+              element={<ProtectedRoute><BrowserView /></ProtectedRoute>}
+            />
+            <Route
+              path="/salon/:id"
+              element={
+                <ProtectedRoute>
+                  <SalonDetails /> {/* User selects a salon and initiates booking */}
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/booking"
+              element={<ProtectedRoute><Booking /></ProtectedRoute>} 
+              /* Booking page: choose services & time */
+            />
 
-            {/* Booking-related routes */}
-            <Route path="/explore" element={
-              <ProtectedRoute><BrowserView /></ProtectedRoute>
-            } />
-            <Route path="/salon/:id" element={
-              <ProtectedRoute><SalonDetails /></ProtectedRoute> 
-              /* Yahan se user specific salon select karega aur booking initiate karega */
-            } />
-            <Route path="/booking" element={
-              <ProtectedRoute><Booking /></ProtectedRoute> 
-              /* Actual booking page jahan user services choose aur time select karega */
-            } />
-            <Route path="/account" element={
-              <ProtectedRoute><Account /></ProtectedRoute>
-            } />
-
-            {/* Checkout flow (booking payment related) */}
-            <Route path="/checkout" element={
-              <ProtectedRoute><Checkout /></ProtectedRoute> 
-              /* Payment aur confirmation ke liye */
-            } />
-            <Route path="/add-card" element={
-              <ProtectedRoute><AddCard /></ProtectedRoute> 
-              /* Payment method add karne ke liye */
-            } />
-            <Route path="/success" element={
-              <ProtectedRoute><Success /></ProtectedRoute> 
+            {/* Checkout / Payment pages */}
+            <Route
+              path="/checkout"
+              element={<ProtectedRoute><Checkout /></ProtectedRoute>} 
+              /* Payment and confirmation */
+            />
+            <Route
+              path="/add-card"
+              element={<ProtectedRoute><AddCard /></ProtectedRoute>} 
+              /* Add payment method */
+            />
+            <Route
+              path="/success"
+              element={<ProtectedRoute><Success /></ProtectedRoute>} 
               /* Booking successful page */
-            } />
+            />
 
-            {/* 404 */}
+            {/* 404 Not Found */}
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<Navigate to="/404" replace />} />
 
