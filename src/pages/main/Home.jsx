@@ -21,50 +21,43 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState("Recommended");
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // SERVICES DATA
   const services = [
     {
       id: 1,
-      title: "Hair",
-      time: "45 min",
+      title: "Haircut",
+      time: "45 mins",
       price: 90,
-      image:
-        "https://www.image2url.com/r2/default/images/1777877371615-e2fab8d7-2482-4a73-8da2-935c9deb91be.jpg",
+      image: "https://www.image2url.com/r2/default/images/1777877371615-e2fab8d7-2482-4a73-8da2-935c9deb91be.jpg",
     },
     {
       id: 2,
       title: "Massage",
-      time: "60 min",
+      time: "60 mins",
       price: 60,
-      image:
-        "https://www.image2url.com/r2/default/images/1777877339043-8d3dd7fd-4bf2-4d81-8ffd-2554f3abd45e.jpg",
+      image: "https://www.image2url.com/r2/default/images/1777877339043-8d3dd7fd-4bf2-4d81-8ffd-2554f3abd45e.jpg",
     },
     {
       id: 3,
       title: "Nails",
-      time: "30 min",
+      time: "30 mins",
       price: 30,
-      image:
-        "https://www.image2url.com/r2/default/images/1777877171613-cac80c7b-ecdb-4a53-bf00-92c01b19dcf5.jpg",
+      image: "https://www.image2url.com/r2/default/images/1777877171613-cac80c7b-ecdb-4a53-bf00-92c01b19dcf5.jpg",
     },
     {
       id: 4,
       title: "Eyebrow",
-      time: "20 min",
+      time: "20 mins",
       price: 20,
-      image:
-        "https://www.image2url.com/r2/default/images/1777877232157-3ab550a7-61c4-496f-bf9b-5e0b39acfffb.jpg",
+      image: "https://www.image2url.com/r2/default/images/1777877232157-3ab550a7-61c4-496f-bf9b-5e0b39acfffb.jpg",
     },
   ];
 
-  // BANNERS
   const banners = [
     "https://www.image2url.com/r2/default/images/1777877845446-9051849f-ca74-4d55-b133-5f383aaf727e.jpg",
     "https://www.image2url.com/r2/default/images/1777877371615-e2fab8d7-2482-4a73-8da2-935c9deb91be.jpg",
     "https://www.image2url.com/r2/default/images/1777877339043-8d3dd7fd-4bf2-4d81-8ffd-2554f3abd45e.jpg",
   ];
 
-  // UPCOMING BOOKINGS
   const upcomingBookings = [
     {
       id: 1,
@@ -81,16 +74,13 @@ export default function Home() {
       <div className="w-full max-w-[420px] sm:max-w-[640px] md:max-w-[720px] lg:max-w-[1200px] bg-white min-h-screen pb-24">
 
         {/* HEADER */}
-        <div className="px-6 pt-6 pb-4 flex justify-between items-center relative">
-          <h1 className="text-lg font-semibold text-center flex-1">MeTime</h1>
-
+        <div className="px-4 sm:px-6 pt-6 pb-4 flex justify-between items-center relative">
           {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden z-20"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
+          <button className="md:hidden z-20" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
+
+          <h1 className="text-lg sm:text-xl font-semibold text-center flex-1">MeTime</h1>
 
           {/* Desktop greeting */}
           <div className="hidden md:flex items-center gap-3">
@@ -115,12 +105,10 @@ export default function Home() {
             )}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Greeting inside menu */}
             <p className="text-gray-700 font-medium mb-4 text-lg">
               Hello, <span className="font-bold text-[#E8AFA7]">{userName}</span>
             </p>
 
-            {/* Menu Items */}
             <button
               onClick={() => navigate("/profile")}
               className="w-full text-left py-2 px-3 rounded-lg hover:bg-gray-200 flex items-center gap-2"
@@ -137,7 +125,7 @@ export default function Home() {
         </div>
 
         {/* SEARCH */}
-        <div className="px-6 mb-6">
+        <div className="px-4 sm:px-6 mb-6">
           <div className="flex items-center gap-2 bg-gray-100 px-4 py-3 rounded-xl">
             <Search className="text-gray-400 w-4 h-4" />
             <input
@@ -149,7 +137,7 @@ export default function Home() {
         </div>
 
         {/* BANNER SWIPER */}
-        <div className="px-6 mb-6">
+        <div className="px-4 sm:px-6 mb-6">
           <Swiper
             modules={[Autoplay, Pagination]}
             autoplay={{ delay: 3000 }}
@@ -165,7 +153,7 @@ export default function Home() {
                 >
                   <img src={img} className="w-full h-full object-cover rounded-2xl" />
                   <div className="absolute inset-0 bg-black/30 rounded-2xl" />
-                  <h2 className="absolute left-4 bottom-4 text-white text-lg font-bold">
+                  <h2 className="absolute left-4 bottom-4 text-white text-base sm:text-lg md:text-xl font-bold">
                     Find the best salon services near you
                   </h2>
                 </div>
@@ -175,7 +163,7 @@ export default function Home() {
         </div>
 
         {/* CATEGORY */}
-        <div className="px-6 mb-6 overflow-x-auto">
+        <div className="px-4 sm:px-6 mb-6 overflow-x-auto">
           <div className="flex gap-3">
             {categories.map((item) => (
               <button
@@ -195,7 +183,7 @@ export default function Home() {
         </div>
 
         {/* UPCOMING BOOKINGS */}
-        <div className="px-6 mb-6">
+        <div className="px-4 sm:px-6 mb-6">
           <h3 className="text-lg font-semibold mb-4">Upcoming</h3>
           {upcomingBookings.length === 0 ? (
             <div className="text-center text-gray-400 text-sm py-6">
@@ -209,7 +197,7 @@ export default function Home() {
                   className="flex flex-col sm:flex-row gap-4 bg-gray-100 p-4 rounded-xl items-start sm:items-center cursor-pointer hover:bg-gray-200 transition"
                   onClick={() => navigate("/checkout")}
                 >
-                  <div className="bg-[#E8AFA7] text-white px-3 py-2 rounded-lg text-center">
+                  <div className="bg-[#E8AFA7] text-white px-3 py-2 rounded-lg text-center flex-shrink-0">
                     <p className="text-sm font-bold">{item.date}</p>
                     <p className="text-xs">{item.month}</p>
                   </div>
@@ -234,7 +222,7 @@ export default function Home() {
         </div>
 
         {/* SERVICES */}
-        <div className="px-6 mb-10">
+        <div className="px-4 sm:px-6 mb-10">
           <h3 className="text-lg font-semibold mb-4">Services</h3>
           <Swiper
             modules={[FreeMode, Autoplay]}
