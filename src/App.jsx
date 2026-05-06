@@ -13,6 +13,7 @@ const Checkout = lazy(() => import('./pages/checkout/Checkout'));
 const AddCard = lazy(() => import('./pages/checkout/AddCard'));
 const Onboarding = lazy(() => import('./pages/onboarding/Onboarding'));
 const Booking = lazy(() => import('./pages/booking/Booking'));
+
 const Success = lazy(() => import('./pages/checkout/Success'));
 
 // 404 Page component

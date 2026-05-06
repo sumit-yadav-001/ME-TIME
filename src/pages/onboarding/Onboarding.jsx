@@ -10,12 +10,13 @@ export default function Onboarding() {
   const [selectedPro, setSelectedPro] = useState(null);
   const navigate = useNavigate();
 
-  const nextStep = () => setStep((prev) => prev + 1);
-  const prevStep = () => setStep((prev) => Math.max(prev - 1, 0));
+  const nextStep = () => setStep(prev => prev + 1);
+  const prevStep = () => setStep(prev => Math.max(prev - 0, 0));
 
+  // Skip / Finish onboarding
   const finishOnboarding = () => {
     localStorage.setItem("onboardingSeen", "true");
-    window.location.href = "http://localhost:5173/"; // skip → home
+    navigate("/"); // SPA navigation to Home page
   };
 
   const categories = [
@@ -41,29 +42,48 @@ export default function Onboarding() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
+
       {/* Header */}
-      <div className="p-4 flex items-center justify-between">
+      <div className="p-4 flex items-center justify-between relative">
         {step > 0 ? (
-          <button onClick={prevStep} className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+          <button
+            onClick={prevStep}
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+          >
             <FaArrowLeft size={20} />
           </button>
         ) : <div className="w-10 h-10" />}
-        {step > 0 && <h1 className="font-bold text-xl text-gray-800">MeTime</h1>}
-        {step === 0 ? (
-          <button onClick={finishOnboarding} className="text-[#FFB6C1] font-medium hover:text-[#FFA0B0] transition-colors">Skip</button>
-        ) : <div className="w-10 h-10" />}
+
+        {/* Centered MeTime header for steps > 0 */}
+        {step > 0 && (
+          <h1 className="font-bold text-xl text-gray-800 absolute left-1/2 transform -translate-x-1/2">
+            MeTime
+          </h1>
+        )}
+
+        {step === 0 && (
+          <button
+            onClick={finishOnboarding}
+            className="text-[#FFB6C1] font-medium hover:text-[#FFA0B0] transition-colors"
+          >
+            Skip
+          </button>
+        )}
+
+        {step > 0 && <div className="w-10 h-10" />} {/* right placeholder */}
       </div>
 
+      {/* Progress Dots and Steps */}
       <div className="flex-1 flex flex-col max-w-screen-lg md:max-w-4xl mx-auto w-full px-6 pb-10 overflow-y-auto">
-        {/* Progress Dots */}
         <div className="flex justify-center gap-2 mb-8 mt-2">
-          {[0, 1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className={`h-2 rounded-full transition-all duration-300 ${i === step ? "w-8 bg-[#FFB6C1]" : "w-2 bg-gray-200"}`} />
+          {[0,1,2,3,4,5].map(i => (
+            <div key={i} className={`h-2 rounded-full transition-all duration-300 ${i===step ? "w-8 bg-[#FFB6C1]" : "w-2 bg-gray-200"}`} />
           ))}
         </div>
 
         <div className="flex-1">
-          {/* Page 1 */}
+
+          {/* Step 0 - Welcome */}
           {step === 0 && (
             <div className="flex flex-col items-center text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="w-full aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl relative">
@@ -71,65 +91,64 @@ export default function Onboarding() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
               <div className="space-y-4">
-                <h2 className="text-3xl font-bold text-gray-800 leading-tight">Welcome to <br/><span className="text-[#FFB6C1]">The Gallery Salon!</span></h2>
+                <h2 className="text-3xl font-bold text-gray-800 leading-tight">
+                  Welcome to <br/>
+                  <span className="text-[#FFB6C1]">The Gallery Salon!</span>
+                </h2>
                 <p className="text-gray-500 text-lg leading-relaxed">Follow the steps to schedule your next appointment with us.</p>
               </div>
               <button onClick={nextStep} className="w-full bg-[#FFB6C1] hover:bg-[#FFA0B0] text-white py-4 rounded-2xl font-bold text-lg shadow-lg shadow-pink-200 transition-all active:scale-[0.98]">Start</button>
             </div>
           )}
 
-          {/* Page 2 */}
+          {/* Step 1 - Category selection */}
           {step === 1 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
               <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">Please, choose a service:</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {categories.map((category) => (
-                  <div key={category.name} onClick={() => { setSelectedCategory(category); nextStep(); }}
-                    className="group cursor-pointer rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                {categories.map(cat => (
+                  <div key={cat.name} onClick={() => { setSelectedCategory(cat); nextStep(); }} className="group cursor-pointer rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                     <div className="aspect-square overflow-hidden">
-                      <img src={category.img} alt={category.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"/>
+                      <img src={cat.img} alt={cat.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"/>
                     </div>
-                    <div className="py-4 text-center font-bold text-gray-700">{category.name}</div>
+                    <div className="py-4 text-center font-bold text-gray-700">{cat.name}</div>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Page 3 */}
+          {/* Step 2 - Service selection */}
           {step === 2 && (
             <div className="flex flex-col h-full animate-in fade-in slide-in-from-right-4 duration-500">
-              <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">Now, choose one that <br/>fits your needs:</h2>
+              <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">Now, choose one that fits your needs:</h2>
               <div className="space-y-4 flex-1">
-                {services.map((item) => (
-                  <div key={item.name} className={`flex items-center justify-between p-4 rounded-3xl cursor-pointer border-2 transition-all duration-300 ${selectedService?.name === item.name ? "border-[#FFB6C1] bg-pink-50/50 shadow-md" : "border-gray-100 bg-white hover:border-pink-200 shadow-sm"}`}>
-                    <div className="flex items-center gap-4" onClick={() => setSelectedService(item)}>
+                {services.map(s => (
+                  <div key={s.name} className={`flex items-center justify-between p-4 rounded-3xl cursor-pointer border-2 transition-all duration-300 ${selectedService?.name === s.name ? "border-[#FFB6C1] bg-pink-50/50 shadow-md" : "border-gray-100 bg-white hover:border-pink-200 shadow-sm"}`}>
+                    <div className="flex items-center gap-4" onClick={() => setSelectedService(s)}>
                       <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-sm">
-                        <img src={item.img} alt={item.name} className="w-full h-full object-cover"/>
+                        <img src={s.img} alt={s.name} className="w-full h-full object-cover"/>
                       </div>
                       <div>
-                        <p className="font-bold text-gray-800">{item.name}</p>
-                        <p className="text-[#FFB6C1] font-semibold">{item.price}</p>
+                        <p className="font-bold text-gray-800">{s.name}</p>
+                        <p className="text-[#FFB6C1] font-semibold">{s.price}</p>
                       </div>
                     </div>
-                    {/* Arrow */}
-                    <div className="flex items-center justify-center w-6 h-6 text-gray-400 cursor-pointer" onClick={() => { setSelectedService(item); nextStep(); }}>
-                      <FiArrowRight size={20} />
+                    <div className="flex items-center justify-center w-6 h-6 text-gray-400 cursor-pointer" onClick={() => { setSelectedService(s); nextStep(); }}>
+                      <FiArrowRight size={20}/>
                     </div>
                   </div>
                 ))}
               </div>
-      
             </div>
           )}
 
-          {/* Page 4 */}
+          {/* Step 3 - Professional selection */}
           {step === 3 && (
             <div className="flex flex-col h-full animate-in fade-in slide-in-from-right-4 duration-500">
-              <h1 className="font-bold text-xl text-gray-800 mb-4 text-center">MeTime</h1>
               <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">Choose a professional and see available slots</h2>
               <div className="space-y-4 flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
-                {professionals.map((pro) => (
+                {professionals.map(pro => (
                   <div key={pro.name} onClick={() => setSelectedPro(pro)} className={`flex items-center justify-between p-4 rounded-3xl cursor-pointer border-2 transition-all duration-300 ${selectedPro?.name === pro.name ? "border-[#FFB6C1] bg-pink-50/50 shadow-md" : "border-gray-100 bg-white hover:border-pink-200 shadow-sm"}`}>
                     <div className="flex items-center gap-4">
                       <div className="w-16 h-16 rounded-full overflow-hidden shadow-sm border-2 border-white">
@@ -154,7 +173,7 @@ export default function Onboarding() {
             </div>
           )}
 
-          {/* Page 5 - Login / Signup */}
+          {/* Steps 4 & 5 - Login / Signup */}
           {step >= 4 && (
             <div className="flex flex-col items-center text-center space-y-12 py-10 animate-in fade-in zoom-in duration-500">
               <div className="w-24 h-24 bg-pink-50 rounded-full flex items-center justify-center mb-4">
