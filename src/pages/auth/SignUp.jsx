@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EyeOff, Eye, ChevronDown } from 'lucide-react';
+import { FaArrowLeft } from 'react-icons/fa'; // Arrow icon
 import Header from '../../components/ui/Header';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
@@ -19,7 +20,15 @@ export default function SignUp() {
 
   return (
     <div className="flex flex-col h-full bg-white relative overflow-y-auto hide-scrollbar">
-      <Header />
+      
+      {/* Header with Back Arrow */}
+      <div className="flex items-center px-6 py-4">
+        <button onClick={() => navigate(-1)} className="p-1">
+          <FaArrowLeft className="w-6 h-6 text-black" />
+        </button>
+        <h1 className="flex-1 text-center text-xl font-bold text-black">Sign up</h1>
+        <div className="w-6 h-6" /> {/* Placeholder for center alignment */}
+      </div>
 
       <div className="px-6 pt-4 pb-8 flex flex-col gap-5">
         <h1 className="text-[28px] font-bold text-brand-dark mb-1">Sign up</h1>

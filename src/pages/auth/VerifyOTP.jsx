@@ -5,6 +5,7 @@ import Keypad from '../../components/ui/Keypad';
 import { cn } from '../../lib/utils';
 import { authService } from '../../services/authService';
 import { PageLoader } from '../../components/ui/Loader';
+import { FaArrowLeft } from 'react-icons/fa'; // Back arrow icon
 
 export default function VerifyOTP() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ export default function VerifyOTP() {
   const [timer, setTimer] = useState(20);
   const [isVerifying, setIsVerifying] = useState(false);
 
+  // Timer countdown
   useEffect(() => {
     let interval = null;
     if (timer > 0) {
@@ -26,6 +28,7 @@ export default function VerifyOTP() {
     return () => clearInterval(interval);
   }, [timer]);
 
+  // Handle numeric keypad input
   const handleKeyPress = async (key) => {
     if (code.length < 4 && !isVerifying) {
       const newCode = code + key;
@@ -59,14 +62,23 @@ export default function VerifyOTP() {
   return (
     <div className="flex flex-col h-full bg-white relative">
       {isVerifying && <PageLoader />}
-      <Header />
-      
+
+      {/* Header with back arrow */}
+      <div className="flex items-center px-6 py-4">
+        <button onClick={() => navigate(-1)} className="p-1">
+          <FaArrowLeft className="w-6 h-6 text-black" />
+        </button>
+        <h1 className="flex-1 text-center text-xl font-bold text-black">Verify OTP</h1>
+        <div className="w-6 h-6" /> {/* Placeholder for center alignment */}
+      </div>
+
       <div className="flex-1 px-6 pt-4 flex flex-col">
         <h1 className="text-[28px] font-bold text-brand-dark mb-3">Enter code</h1>
         <p className="text-brand-text-gray text-[15px] mb-8 leading-relaxed">
           We've sent an SMS with an activation code to your phone <span className="text-brand-dark font-medium">{countryCode} {phoneNumber || '47 0 0000 0000'}</span>
         </p>
         
+        {/* OTP Input Boxes */}
         <div className="flex items-center gap-4 mb-8">
           {[0, 1, 2, 3].map((index) => (
             <div 
@@ -81,6 +93,7 @@ export default function VerifyOTP() {
           ))}
         </div>
         
+        {/* Resend code */}
         <div className="mt-auto mb-10 text-center">
           <button 
             className={cn(
@@ -95,6 +108,7 @@ export default function VerifyOTP() {
         </div>
       </div>
       
+      {/* Custom Keypad */}
       <div className="w-full">
         <Keypad onKeyPress={handleKeyPress} onDelete={handleDelete} />
       </div>
