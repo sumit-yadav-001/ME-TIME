@@ -162,35 +162,39 @@ export default function Home() {
         </div>
 
         {/* Upcoming Bookings */}
-        <div className="mb-6">
-          <h3 className="text-lg md:text-xl font-semibold mb-4">Upcoming</h3>
-          <div className="space-y-3">
-            {upcomingBookings.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => navigate("/checkout")}
-                className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-gray-100 p-4 rounded-xl hover:bg-gray-200 cursor-pointer transition-colors duration-200"
-              >
-                <div className="flex flex-col items-center justify-center bg-[#E8AFA7] text-white px-3 py-2 rounded-lg flex-shrink-0 w-20 sm:w-24">
-                  <p className="text-sm font-bold">{item.date}</p>
-                  <p className="text-xs">{item.month}</p>
-                </div>
-                <div className="flex flex-col flex-1 w-full sm:w-auto">
-                  <p className="font-semibold text-sm sm:text-base">{item.title}</p>
-                  <p className="text-xs sm:text-sm text-gray-500">with {item.stylist}</p>
-                  <p className="text-sm font-medium mt-1">{item.time}</p>
-                </div>
-                <button
-                  onClick={(e) => e.stopPropagation()}
-                  className="text-sm text-gray-500 hover:text-black mt-2 sm:mt-0 self-start sm:self-auto"
-                >
-                  Edit
-                </button>
-              </div>
-            ))}
-          </div>
+       <div className="mb-6">
+  <h3 className="text-lg md:text-xl font-semibold mb-4">Upcoming</h3>
+  <div className="space-y-3">
+    {upcomingBookings.map((item) => (
+      <div
+        key={item.id}
+        onClick={() => navigate("/checkout")}
+        className="flex flex-row items-center gap-4 bg-gray-100 p-4 rounded-xl hover:bg-gray-200 cursor-pointer transition-colors duration-200"
+      >
+        {/* Date Box */}
+        <div className="flex flex-col items-center justify-center bg-[#E8AFA7] text-white px-3 py-2 rounded-lg flex-shrink-0 w-16 sm:w-24">
+          <p className="text-sm font-bold">{item.date}</p>
+          <p className="text-xs">{item.month}</p>
         </div>
 
+        {/* Booking Info */}
+        <div className="flex flex-col flex-1 min-w-0">
+          <p className="font-semibold text-sm sm:text-base truncate">{item.title}</p>
+          <p className="text-xs sm:text-sm text-gray-500 truncate">with {item.stylist}</p>
+          <p className="text-sm font-medium mt-1">{item.time}</p>
+        </div>
+
+        {/* Edit Button */}
+        <button
+          onClick={(e) => e.stopPropagation()}
+          className="text-sm text-gray-500 hover:text-black ml-auto"
+        >
+          Edit
+        </button>
+      </div>
+    ))}
+  </div>
+</div>
         {/* Services */}
         <div className="mb-10">
           <h3 className="text-lg md:text-xl font-semibold mb-4">Services</h3>
