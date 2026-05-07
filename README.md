@@ -1,16 +1,54 @@
-# React + Vite
+# ME-TIME 🕒
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+ME-TIME is a **modern, responsive web application** for booking personal wellness services. Designed with the **MERN stack**, it offers users a smooth onboarding, secure authentication, and an intuitive booking experience.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Live Demo
 
-## Expanding the ESLint configuration
+[🌐 Visit ME-TIME on Netlify](https://me-time-salon-app.netlify.app/)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🏆 Features
+
+- **User Authentication & OTP Verification** – Secure login and signup flow.
+- **Onboarding Flow** – Guide new users step-by-step.
+- **Service Booking System** – Choose category → service → time slot → confirm.
+- **Payment Integration** – Add, manage, and select payment methods safely.
+- **Responsive Design** – Works perfectly on mobile, tablet, and desktop (Tailwind CSS).
+- **Protected Routes** – Secure pages accessible only to authenticated users.
+- **Future-Ready** – Built to scale with AI recommendations, notifications, and admin dashboards.
+
+---
+
+## 🛠 Tech Stack
+
+| Frontend | Backend | Database | Others |
+| -------- | ------- | -------- | ------ |
+| React, React Router, Tailwind CSS | Node.js, Express | MongoDB | JWT Auth, OTP Verification, Netlify Deployment |
+
+---
+
+## ⚡ Getting Started
+
+### Prerequisites
+
+- Node.js >= 18  
+- npm or yarn  
+- MongoDB (local or Atlas)
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://github.com/yourusername/me-time.git
+cd me-time
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
