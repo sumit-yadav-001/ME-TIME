@@ -1,9 +1,9 @@
-import { Routes, Route, Navigate, Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import { PageLoader } from './components/ui/Loader';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
-// Lazy-loaded pages for performance optimization
+// Lazy-loaded pages for performance
 const Login = lazy(() => import('./pages/auth/Login'));
 const VerifyOTP = lazy(() => import('./pages/auth/VerifyOTP'));
 const SignUp = lazy(() => import('./pages/auth/SignUp'));
@@ -32,34 +32,30 @@ function NotFound() {
 }
 
 function App() {
-  // Check if user has seen onboarding
-  const isOnboardingSeen = localStorage.getItem("onboardingSeen");
-
   return (
     <div className="min-h-screen bg-brand-gray flex justify-center items-start overflow-x-hidden">
       <div className="w-full min-h-screen bg-white shadow-2xl relative flex flex-col mx-auto">
         <Suspense fallback={<PageLoader />}>
           <Routes>
 
+            {/* Root shows onboarding */}
+            <Route path="/" element={<Onboarding />} />
+
+            {/* Home page */}
+            <Route
+              path="/home"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+
             {/* Public Routes */}
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/login" element={<Login />} />
             <Route path="/verify" element={<VerifyOTP />} />
             <Route path="/signup" element={<SignUp />} />
-
-            {/* Root Route */}
-            <Route
-              path="/"
-              element={
-                !isOnboardingSeen ? (
-                  <Navigate to="/onboarding" replace />
-                ) : (
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                )
-              }
-            />
 
             {/* Protected Routes */}
             <Route

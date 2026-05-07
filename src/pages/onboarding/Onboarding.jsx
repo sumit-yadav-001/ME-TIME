@@ -13,11 +13,10 @@ export default function Onboarding() {
   const nextStep = () => setStep(prev => prev + 1);
   const prevStep = () => setStep(prev => Math.max(prev - 1, 0));
 
-  // Skip / Finish onboarding
-  const finishOnboarding = () => {
-    localStorage.setItem("onboardingSeen", "true");
-    navigate("/"); // SPA navigation to Home page
-  };
+const finishOnboarding = () => {
+  localStorage.setItem("onboardingSeen", "true");
+  navigate("/home"); // update if your home page route is /home
+};
 
   const categories = [
     { name: "Hair", img: "https://www.image2url.com/r2/default/images/1777877371615-e2fab8d7-2482-4a73-8da2-935c9deb91be.jpg" },
