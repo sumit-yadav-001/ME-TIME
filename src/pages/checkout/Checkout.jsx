@@ -127,31 +127,61 @@ export default function Checkout() {
         {/* Book Button */}
         <Button
           onClick={handleBook}
-          className="w-full py-4 sm:py-5 text-lg sm:text-xl font-bold bg-[#FDCCC5] hover:bg-pink-500 rounded-2xl shadow-lg uppercase tracking-widest mt-6"
+          className="w-full py-4 sm:py-5 text-lg sm:text-xl font-bold bg-[#FDCCC5] hover:bg-background: #FDCCC5;
+-500 rounded-2xl shadow-lg uppercase tracking-widest mt-6"
         >
           Book
         </Button>
       </div>
 
       {/* Payment Bottom Sheet */}
-      <BottomSheet
-        isOpen={isPaymentModalOpen}
-        onClose={() => setIsPaymentModalOpen(false)}
-        title="Add payment method"
+<BottomSheet
+  isOpen={isPaymentModalOpen}
+  onClose={() => setIsPaymentModalOpen(false)}
+  title="Add payment method"
+>
+  <div className="flex flex-col gap-3 pb-8">
+    {savedPaymentMethods.map((method) => (
+      <button
+        key={method.id}
+        onClick={() => handleSelectPayment(method)}
+        className="flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-gray-50 hover:bg-[#FFF0F0] border border-gray-200 transition-all duration-300"
       >
-        <div className="flex flex-col gap-3 pb-8">
-          {savedPaymentMethods.map((method) => (
-            <button
-              key={method.id}
-              onClick={() => handleSelectPayment(method)}
-              className="flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-gray-50 hover:bg-[#FFF0F0] border border-gray-200 transition-all duration-300"
-            >
-              <span className="font-bold text-gray-800">{method.label}</span>
-              <ChevronRight size={20} className="text-gray-400" />
-            </button>
-          ))}
+        <div className="flex items-center gap-3">
+          {/* Payment method icon with Image Support */}
+          <div
+            className="w-10 h-10 flex items-center justify-center rounded-xl overflow-hidden"
+            style={{
+              backgroundColor: method.bgColor || '#f3f4f6',
+            }}
+          >
+            {method.iconUrl ? (
+              <img 
+                src={method.iconUrl} 
+                alt={method.label} 
+                className="w-full h-full object-contain p-1" 
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-200" /> /* Fallback if no image */
+            )}
+          </div>
+          <span className="font-bold text-gray-800">{method.label}</span>
         </div>
-      </BottomSheet>
+
+        <div className="flex items-center gap-3">
+          {/* Agar card hai toh Remove text dikhega */}
+          {method.type === 'card' && (
+            <span className="text-red-500 text-sm font-medium mr-1">Remove</span>
+          )}
+          <ChevronRight size={20} className="text-gray-400" />
+        </div>
+      </button>
+    ))}
+  </div>
+</BottomSheet>
+
+
+
     </div>
   );
 }

@@ -90,9 +90,12 @@ export default function Home() {
           </h2>
 
           {/* Centered Title */}
-          <h1 className="absolute left-1/2 -translate-x-1/2 text-xl md:text-2xl font-semibold">
-            MeTime
-          </h1>
+         {/* Centered Title */}
+<h1 className="text-xl md:text-2xl font-semibold 
+               text-center md:absolute md:left-1/2 md:-translate-x-1/2
+               mb-4 md:mb-0">
+  MeTime
+</h1>
         </div>
 
         {/* Search */}

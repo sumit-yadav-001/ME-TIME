@@ -2,8 +2,6 @@
 import { useState } from "react";
 import {
   AiFillStar,
-  AiOutlineClockCircle,
-  AiOutlineCalendar,
   AiOutlineArrowLeft,
 } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
@@ -92,7 +90,6 @@ export default function BookingPage() {
         <button onClick={() => navigate(-1)} className="mr-4 text-lg">
           <AiOutlineArrowLeft />
         </button>
-        <h1 className="font-bold text-lg">MeTime</h1>
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 max-w-6xl mx-auto w-full">
@@ -101,48 +98,59 @@ export default function BookingPage() {
         {step === 0 && (
           <div className="space-y-8">
 
-            <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
-              <img src={professional.img} alt={professional.name} className="w-24 h-24 rounded-2xl object-cover" />
-              <div className="text-center md:text-left">
-                <h2 className="font-bold text-xl">{professional.name}</h2>
-                <p className="text-gray-500">{professional.role}</p>
-                <div className="flex items-center justify-center md:justify-start mt-1">
-                  <AiFillStar className="text-yellow-400" />
-                  <span className="ml-1 font-semibold">{professional.rating}</span>
-                </div>
+            {/* Profile */}
+            <div className="flex flex-col items-center space-y-2">
+              <img src={professional.img} alt={professional.name} className="w-28 h-28 rounded-2xl object-cover" />
+              <h2 className="font-bold text-xl">{professional.name}</h2>
+              <p className="text-gray-500">{professional.role}</p>
+              <div className="flex items-center mt-1">
+                <span className="text-yellow-400 text-lg">★</span>
+                <span className="ml-1 font-semibold">{professional.rating}</span>
               </div>
             </div>
 
-            <h3 className="font-bold text-gray-700">Select date & time</h3>
-            <div className="grid grid-cols-5 gap-4 md:grid-cols-6 lg:grid-cols-7">
-              {dates.map((d) => (
-                <button
-                  key={d}
-                  onClick={() => setSelectedDate(d)}
-                  className={`py-3 rounded-xl border font-bold text-sm ${
-                    selectedDate === d ? "border-pink-400 bg-pink-50" : "border-gray-200 bg-white"
-                  }`}
-                >
-                  {d}
-                </button>
-              ))}
+            {/* Select Date */}
+            <div className="space-y-2">
+              <h3 className="font-bold text-gray-700 text-center">Select date & time</h3>
+              <div className="flex space-x-3 overflow-x-auto pb-2">
+                {dates.map((d) => (
+                  <button
+                    key={d}
+                    onClick={() => setSelectedDate(d)}
+                    className={`flex-shrink-0 w-16 py-3 rounded-xl border font-bold text-sm text-center ${
+                      selectedDate === d
+                        ? "border-pink-400 bg-pink-50 text-pink-400"
+                        : "border-gray-200 bg-white text-gray-700"
+                    }`}
+                  >
+                    {d.split(" ")[0]}<br/>
+                    <span className="text-xs text-gray-400">{d.split(" ")[1]}</span>
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <h3 className="font-bold text-gray-700 mt-6">Availability</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-              {times.map((t) => (
-                <button
-                  key={t}
-                  onClick={() => setSelectedTime(t)}
-                  className={`py-2 rounded-xl border font-bold text-sm ${
-                    selectedTime === t ? "border-pink-400 bg-pink-50" : "border-gray-200 bg-white"
-                  }`}
-                >
-                  {t}
-                </button>
-              ))}
+            {/* Availability */}
+            <div className="space-y-2">
+              <h3 className="font-bold text-gray-700 text-center">Availability</h3>
+              <div className="flex flex-wrap gap-3 justify-center">
+                {times.map((t) => (
+                  <button
+                    key={t}
+                    onClick={() => setSelectedTime(t)}
+                    className={`py-2 px-4 rounded-xl border font-bold text-sm ${
+                      selectedTime === t
+                        ? "border-pink-400 bg-pink-50 text-pink-400"
+                        : "border-gray-200 bg-white text-gray-700"
+                    }`}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
             </div>
 
+            {/* Book Button */}
             <button
               onClick={() => setStep(1)}
               disabled={!selectedDate || !selectedTime}

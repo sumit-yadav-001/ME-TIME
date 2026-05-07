@@ -11,7 +11,7 @@ export default function Onboarding() {
   const navigate = useNavigate();
 
   const nextStep = () => setStep(prev => prev + 1);
-  const prevStep = () => setStep(prev => Math.max(prev - 0, 0));
+  const prevStep = () => setStep(prev => Math.max(prev - 1, 0));
 
   // Skip / Finish onboarding
   const finishOnboarding = () => {
@@ -61,15 +61,6 @@ export default function Onboarding() {
           </h1>
         )}
 
-        {step === 0 && (
-          <button
-            onClick={finishOnboarding}
-            className="text-[#FFB6C1] font-medium hover:text-[#FFA0B0] transition-colors"
-          >
-            Skip
-          </button>
-        )}
-
         {step > 0 && <div className="w-10 h-10" />} {/* right placeholder */}
       </div>
 
@@ -87,7 +78,11 @@ export default function Onboarding() {
           {step === 0 && (
             <div className="flex flex-col items-center text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="w-full aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl relative">
-                <img src="https://www.image2url.com/r2/default/images/1777875449038-a3747603-e246-4e4b-9fcf-2233e56d30ca.png" className="w-full h-full object-cover" alt="Welcome" />
+                <img
+                  src="https://www.image2url.com/r2/default/images/1777875449038-a3747603-e246-4e4b-9fcf-2233e56d30ca.png"
+                  className="w-full h-full object-cover"
+                  alt="Welcome"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
               <div className="space-y-4">
@@ -95,9 +90,26 @@ export default function Onboarding() {
                   Welcome to <br/>
                   <span className="text-[#FFB6C1]">The Gallery Salon!</span>
                 </h2>
-                <p className="text-gray-500 text-lg leading-relaxed">Follow the steps to schedule your next appointment with us.</p>
+                <p className="text-gray-500 text-lg leading-relaxed">
+                  Follow the steps to schedule your next appointment with us.
+                </p>
               </div>
-              <button onClick={nextStep} className="w-full bg-[#FFB6C1] hover:bg-[#FFA0B0] text-white py-4 rounded-2xl font-bold text-lg shadow-lg shadow-pink-200 transition-all active:scale-[0.98]">Start</button>
+
+              {/* Buttons: Start + Skip side by side */}
+              <div className="flex gap-4 w-full max-w-xs">
+                <button
+                  onClick={finishOnboarding}
+                  className="flex-1 py-4 rounded-2xl border border-pink-200 text-pink-300 font-medium hover:text-pink-400 transition-colors"
+                >
+                  Skip
+                </button>
+                <button
+                  onClick={nextStep}
+                  className="flex-1 bg-[#FFB6C1] hover:bg-[#FFA0B0] text-white py-4 rounded-2xl font-bold text-lg shadow-lg shadow-pink-200 transition-all active:scale-[0.98]"
+                >
+                  Start
+                </button>
+              </div>
             </div>
           )}
 
