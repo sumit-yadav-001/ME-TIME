@@ -1,6 +1,6 @@
 # ME-TIME 🕒
 
-![Project Banner](https://your-image-link.com/banner.png)
+
 
 ME-TIME is a **modern, responsive web application** for booking personal wellness services. Designed with the **MERN stack**, it offers users a smooth onboarding, secure authentication, and an intuitive booking experience.
 
@@ -8,7 +8,7 @@ ME-TIME is a **modern, responsive web application** for booking personal wellnes
 
 ## 🚀 Live Demo
 
-[🌐 Visit ME-TIME on Netlify](https://your-netlify-link.netlify.app)
+[🌐 Visit ME-TIME on Netlify](https://me-time-salon-app.netlify.app/)
 
 ---
 
