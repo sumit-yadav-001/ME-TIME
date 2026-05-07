@@ -13,7 +13,6 @@ const Checkout = lazy(() => import('./pages/checkout/Checkout'));
 const AddCard = lazy(() => import('./pages/checkout/AddCard'));
 const Onboarding = lazy(() => import('./pages/onboarding/Onboarding'));
 const Booking = lazy(() => import('./pages/booking/Booking'));
-
 const Success = lazy(() => import('./pages/checkout/Success'));
 
 // 404 Page component
@@ -107,16 +106,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
-            {/* Optional Browser View (commented out if not used) */}
-            {/* <Route
-              path="/explore"
-              element={
-                <ProtectedRoute>
-                  <BrowserView />
-                </ProtectedRoute>
-              }
-            /> */}
 
             {/* 404 Not Found */}
             <Route path="/404" element={<NotFound />} />
