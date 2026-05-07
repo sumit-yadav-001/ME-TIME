@@ -2,7 +2,6 @@ import { Search, Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { cn } from "../../lib/utils";
-// import BottomNav from "../../components/ui/BottomNav";
 import { authService } from "../../services/authService";
 
 // Swiper
@@ -21,7 +20,6 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState("Recommended");
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Services with exact image URLs
   const services = [
     {
       id: 1,
@@ -57,7 +55,6 @@ export default function Home() {
     },
   ];
 
-  // Banner images with exact URLs
   const banners = [
     "https://www.image2url.com/r2/default/images/1777877845446-9051849f-ca74-4d55-b133-5f383aaf727e.jpg",
     "https://www.image2url.com/r2/default/images/1778052583714-f2b85af4-64a3-4adb-827e-0331aac936cf.jpg",
@@ -79,53 +76,24 @@ export default function Home() {
   return (
     <div className="bg-gray-50 min-h-screen flex justify-center font-['Raleway']">
       <div className="w-full max-w-[1200px] bg-white min-h-screen pb-24 px-4 sm:px-6 md:px-8">
+        
         {/* Header */}
-        <div className="flex justify-between items-center pt-6 pb-4 relative">
+        <div className="flex items-center justify-between pt-6 pb-4 relative">
+          {/* Mobile Menu Button */}
           <button className="md:hidden z-20" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
-          <h1 className="text-xl md:text-2xl font-semibold text-center flex-1">MeTime</h1>
-          <div className="hidden md:flex items-center gap-3">
-            <h2 className="text-xl font-semibold">
-              Hello, <span className="text-[#E8AFA7] font-bold">{userName}</span>
-            </h2>
-          </div>
+
+          {/* Greeting */}
+          <h2 className="text-xl font-semibold flex-1 ml-2">
+            Hello, <span className="text-[#E8AFA7] font-bold">{userName}</span>
+          </h2>
+
+          {/* Centered Title */}
+          <h1 className="absolute left-1/2 -translate-x-1/2 text-xl md:text-2xl font-semibold">
+            MeTime
+          </h1>
         </div>
-
-        {/* Mobile Menu */}
-        {/* <div
-          className={cn(
-            "md:hidden fixed inset-0 bg-black/40 z-10 transition-opacity duration-300",
-            menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-          )}
-          onClick={() => setMenuOpen(false)}
-        >
-          <div
-            className={cn(
-              "absolute top-0 left-0 w-64 h-full bg-white shadow-lg p-6 space-y-4 transition-transform duration-300",
-              menuOpen ? "translate-x-0" : "-translate-x-full"
-            )}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <p className="text-gray-700 font-medium mb-4 text-lg">
-              Hello, <span className="font-bold text-[#E8AFA7]">{userName}</span>
-            </p>
-            <button
-              onClick={() => navigate("/profile")}
-              className="w-full text-left py-2 px-3 rounded-lg hover:bg-gray-200"
-            >
-              Profile
-            </button>
-            <button
-              onClick={() => navigate("/settings")}
-              className="w-full text-left py-2 px-3 rounded-lg hover:bg-gray-200"
-            >
-              Settings
-            </button>
-          </div>
-        </div> */}
-
-
 
         {/* Search */}
         <div className="mb-6">
@@ -146,28 +114,23 @@ export default function Home() {
             autoplay={{ delay: 3000 }}
             pagination={{ clickable: true }}
             loop
-            className="rounded-2xl"
+            className="rounded-2xl bg-white"
           >
             {banners.map((img, index) => (
               <SwiperSlide key={index}>
                 <div
                   onClick={() => navigate("/salon/1")}
-                  className="relative cursor-pointer h-[180px] sm:h-[220px] md:h-[260px] lg:h-[300px]"
+                  className="relative cursor-pointer h-[180px] sm:h-[220px] md:h-[260px] lg:h-[300px] rounded-2xl overflow-hidden"
                 >
-                  <img src={img} className="w-full h-full object-cover rounded-2xl" />
+                  <img
+                    src={img}
+                    className="w-full h-full object-cover rounded-2xl"
+                    alt={`banner-${index}`}
+                  />
                   <div className="absolute inset-0 bg-black/30 rounded-2xl" />
                   <h2
-                    className="absolute text-white font-bold"
-                    style={{
-                      fontSize: "28px",
-                      lineHeight: "30px",
-                      left: "4.76%",
-                      right: "38.1%",
-                      top: "17.14%",
-                      bottom: "17.86%",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
+                    className="absolute text-white font-bold text-[20px] sm:text-[24px] md:text-[28px] leading-[30px] left-4 top-6"
+                    style={{ fontFamily: "Raleway", fontWeight: 700 }}
                   >
                     Find the best hair stylist for you.
                   </h2>
@@ -196,75 +159,65 @@ export default function Home() {
         </div>
 
         {/* Upcoming Bookings */}
-<div className="mb-6">
-  <h3 className="text-lg md:text-xl font-semibold mb-4">Upcoming</h3>
-  <div className="space-y-3">
-    {upcomingBookings.map((item) => (
-      <div
-        key={item.id}
-        onClick={() => navigate("/checkout")}
-        className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-gray-100 p-4 rounded-xl hover:bg-gray-200 cursor-pointer transition-colors duration-200"
-      >
-        {/* Date Box */}
-        <div className="flex flex-col items-center justify-center bg-[#E8AFA7] text-white px-3 py-2 rounded-lg flex-shrink-0 w-20 sm:w-24">
-          <p className="text-sm font-bold">{item.date}</p>
-          <p className="text-xs">{item.month}</p>
+        <div className="mb-6">
+          <h3 className="text-lg md:text-xl font-semibold mb-4">Upcoming</h3>
+          <div className="space-y-3">
+            {upcomingBookings.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => navigate("/checkout")}
+                className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-gray-100 p-4 rounded-xl hover:bg-gray-200 cursor-pointer transition-colors duration-200"
+              >
+                <div className="flex flex-col items-center justify-center bg-[#E8AFA7] text-white px-3 py-2 rounded-lg flex-shrink-0 w-20 sm:w-24">
+                  <p className="text-sm font-bold">{item.date}</p>
+                  <p className="text-xs">{item.month}</p>
+                </div>
+                <div className="flex flex-col flex-1 w-full sm:w-auto">
+                  <p className="font-semibold text-sm sm:text-base">{item.title}</p>
+                  <p className="text-xs sm:text-sm text-gray-500">with {item.stylist}</p>
+                  <p className="text-sm font-medium mt-1">{item.time}</p>
+                </div>
+                <button
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-sm text-gray-500 hover:text-black mt-2 sm:mt-0 self-start sm:self-auto"
+                >
+                  Edit
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
-
-        {/* Booking Info */}
-        <div className="flex flex-col flex-1 w-full sm:w-auto">
-          <p className="font-semibold text-sm sm:text-base">{item.title}</p>
-          <p className="text-xs sm:text-sm text-gray-500">with {item.stylist}</p>
-          <p className="text-sm font-medium mt-1">{item.time}</p>
-        </div>
-
-        {/* Edit Button */}
-        <button
-          onClick={(e) => e.stopPropagation()}
-          className="text-sm text-gray-500 hover:text-black mt-2 sm:mt-0 self-start sm:self-auto"
-        >
-          Edit
-        </button>
-      </div>
-    ))}
-  </div>
-</div>
 
         {/* Services */}
-  <div className="mb-10">
-  <h3 className="text-lg md:text-xl font-semibold mb-4">Services</h3>
-  <Swiper
-    modules={[FreeMode, Autoplay]}
-    freeMode
-    autoplay={{ delay: 2500, disableOnInteraction: false }}
-    spaceBetween={12}
-    breakpoints={{
-      0: { slidesPerView: 2 },       // Mobile: 2 cards
-      640: { slidesPerView: 3 },      // Small screens ≥640px
-      1024: { slidesPerView: 4 },     // Desktop ≥1024px
-    }}
-  >
-    {services.map((item) => (
-      <SwiperSlide key={item.id}>
-        <div
-          onClick={() => navigate(`/salon/1`)}
-          className="cursor-pointer"
-        >
-          <img
-            src={item.image}
-            className="w-full h-28 sm:h-32 md:h-36 lg:h-40 object-cover rounded-xl"
-          />
-          <h4 className="mt-2 font-medium text-sm md:text-base">{item.title}</h4>
-          <p className="text-xs md:text-sm text-gray-500">⏱ {item.time}</p>
-          <p className="font-semibold text-sm md:text-base">${item.price}</p>
+        <div className="mb-10">
+          <h3 className="text-lg md:text-xl font-semibold mb-4">Services</h3>
+          <Swiper
+            modules={[FreeMode, Autoplay]}
+            freeMode
+            autoplay={{ delay: 2500, disableOnInteraction: false }}
+            spaceBetween={12}
+            breakpoints={{
+              0: { slidesPerView: 2 },
+              640: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
+            }}
+          >
+            {services.map((item) => (
+              <SwiperSlide key={item.id}>
+                <div onClick={() => navigate(`/salon/1`)} className="cursor-pointer">
+                  <img
+                    src={item.image}
+                    className="w-full h-28 sm:h-32 md:h-36 lg:h-40 object-cover rounded-xl"
+                  />
+                  <h4 className="mt-2 font-medium text-sm md:text-base">{item.title}</h4>
+                  <p className="text-xs md:text-sm text-gray-500">⏱ {item.time}</p>
+                  <p className="font-semibold text-sm md:text-base">${item.price}</p>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
-</div>
 
-        {/* Bottom Nav */}
-        {/* <BottomNav /> */}
       </div>
     </div>
   );
