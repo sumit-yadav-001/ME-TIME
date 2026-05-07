@@ -2,7 +2,7 @@ import { Search, Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { cn } from "../../lib/utils";
-import BottomNav from "../../components/ui/BottomNav";
+// import BottomNav from "../../components/ui/BottomNav";
 import { authService } from "../../services/authService";
 
 // Swiper
@@ -93,7 +93,7 @@ export default function Home() {
         </div>
 
         {/* Mobile Menu */}
-        <div
+        {/* <div
           className={cn(
             "md:hidden fixed inset-0 bg-black/40 z-10 transition-opacity duration-300",
             menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -123,7 +123,9 @@ export default function Home() {
               Settings
             </button>
           </div>
-        </div>
+        </div> */}
+
+
 
         {/* Search */}
         <div className="mb-6">
@@ -194,66 +196,75 @@ export default function Home() {
         </div>
 
         {/* Upcoming Bookings */}
-        <div className="mb-6">
-          <h3 className="text-lg md:text-xl font-semibold mb-4">Upcoming</h3>
-          <div className="space-y-3">
-            {upcomingBookings.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => navigate("/checkout")}
-                className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-gray-100 p-4 rounded-xl hover:bg-gray-200 cursor-pointer"
-              >
-                <div className="bg-[#E8AFA7] text-white px-3 py-2 rounded-lg text-center flex-shrink-0">
-                  <p className="text-sm font-bold">{item.date}</p>
-                  <p className="text-xs">{item.month}</p>
-                </div>
-                <div className="flex-1">
-                  <p className="font-semibold">{item.title}</p>
-                  <p className="text-xs text-gray-500">with {item.stylist}</p>
-                  <p className="text-sm font-medium mt-1">{item.time}</p>
-                </div>
-                <button
-                  onClick={(e) => e.stopPropagation()}
-                  className="text-sm text-gray-500 hover:text-black mt-2 sm:mt-0"
-                >
-                  Edit
-                </button>
-              </div>
-            ))}
-          </div>
+<div className="mb-6">
+  <h3 className="text-lg md:text-xl font-semibold mb-4">Upcoming</h3>
+  <div className="space-y-3">
+    {upcomingBookings.map((item) => (
+      <div
+        key={item.id}
+        onClick={() => navigate("/checkout")}
+        className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-gray-100 p-4 rounded-xl hover:bg-gray-200 cursor-pointer transition-colors duration-200"
+      >
+        {/* Date Box */}
+        <div className="flex flex-col items-center justify-center bg-[#E8AFA7] text-white px-3 py-2 rounded-lg flex-shrink-0 w-20 sm:w-24">
+          <p className="text-sm font-bold">{item.date}</p>
+          <p className="text-xs">{item.month}</p>
         </div>
+
+        {/* Booking Info */}
+        <div className="flex flex-col flex-1 w-full sm:w-auto">
+          <p className="font-semibold text-sm sm:text-base">{item.title}</p>
+          <p className="text-xs sm:text-sm text-gray-500">with {item.stylist}</p>
+          <p className="text-sm font-medium mt-1">{item.time}</p>
+        </div>
+
+        {/* Edit Button */}
+        <button
+          onClick={(e) => e.stopPropagation()}
+          className="text-sm text-gray-500 hover:text-black mt-2 sm:mt-0 self-start sm:self-auto"
+        >
+          Edit
+        </button>
+      </div>
+    ))}
+  </div>
+</div>
 
         {/* Services */}
-        <div className="mb-10">
-          <h3 className="text-lg md:text-xl font-semibold mb-4">Services</h3>
-          <Swiper
-            modules={[FreeMode, Autoplay]}
-            freeMode
-            autoplay={{ delay: 2500, disableOnInteraction: false }}
-            spaceBetween={12}
-            breakpoints={{ 0: { slidesPerView: 2.2 }, 640: { slidesPerView: 3 }, 1024: { slidesPerView: 4.2 } }}
-          >
-            {services.map((item) => (
-              <SwiperSlide key={item.id}>
-                <div
-                  onClick={() => navigate(`/salon/1`)} // Updated here
-                  className="cursor-pointer"
-                >
-                  <img
-                    src={item.image}
-                    className="w-full h-28 sm:h-32 md:h-36 lg:h-40 object-cover rounded-xl"
-                  />
-                  <h4 className="mt-2 font-medium text-sm md:text-base">{item.title}</h4>
-                  <p className="text-xs md:text-sm text-gray-500">⏱ {item.time}</p>
-                  <p className="font-semibold text-sm md:text-base">${item.price}</p>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+  <div className="mb-10">
+  <h3 className="text-lg md:text-xl font-semibold mb-4">Services</h3>
+  <Swiper
+    modules={[FreeMode, Autoplay]}
+    freeMode
+    autoplay={{ delay: 2500, disableOnInteraction: false }}
+    spaceBetween={12}
+    breakpoints={{
+      0: { slidesPerView: 2 },       // Mobile: 2 cards
+      640: { slidesPerView: 3 },      // Small screens ≥640px
+      1024: { slidesPerView: 4 },     // Desktop ≥1024px
+    }}
+  >
+    {services.map((item) => (
+      <SwiperSlide key={item.id}>
+        <div
+          onClick={() => navigate(`/salon/1`)}
+          className="cursor-pointer"
+        >
+          <img
+            src={item.image}
+            className="w-full h-28 sm:h-32 md:h-36 lg:h-40 object-cover rounded-xl"
+          />
+          <h4 className="mt-2 font-medium text-sm md:text-base">{item.title}</h4>
+          <p className="text-xs md:text-sm text-gray-500">⏱ {item.time}</p>
+          <p className="font-semibold text-sm md:text-base">${item.price}</p>
         </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
 
         {/* Bottom Nav */}
-        <BottomNav />
+        {/* <BottomNav /> */}
       </div>
     </div>
   );
