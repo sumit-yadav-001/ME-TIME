@@ -91,7 +91,7 @@ export default function Home() {
 
           {/* Centered Title */}
          {/* Centered Title */}
-<h1 className="text-xl md:text-2xl font-semibold 
+<h1 className="hidden md:block text-xl md:text-2xl font-semibold 
                text-center md:absolute md:left-1/2 md:-translate-x-1/2
                mb-4 md:mb-0">
   MeTime
