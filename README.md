@@ -32,14 +32,6 @@ ME-TIME is a **modern, responsive web application** for booking personal wellnes
 
 ---
 
-## 📸 Screenshots
-
-| Onboarding | Booking Page | Payment Modal |
-|------------|-------------|---------------|
-| ![Onboarding](https://your-link.com/onboarding.png) | ![Booking](https://your-link.com/booking.png) | ![Payment](https://your-link.com/payment.png) |
-
----
-
 ## ⚡ Getting Started
 
 ### Prerequisites
